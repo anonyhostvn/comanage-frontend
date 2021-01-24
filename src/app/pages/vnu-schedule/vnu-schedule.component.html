@@ -1,0 +1,39 @@
+<div class="card">
+  <div class="card-header">
+    <h4 class="card-title"> School Schedule </h4>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table">
+        <thead class=" text-primary">
+        <th>
+          Course Name
+        </th>
+        <th>
+          Course Code
+        </th>
+        <th>
+          Schedule
+        </th>
+        </thead>
+        <tbody>
+        <tr *ngFor="let singleSchedule of schedules | async">
+          <td>
+            {{singleSchedule.vnuClass.vnuCourse.courseName}}
+          </td>
+          <td>
+            {{singleSchedule.vnuClass.vnuCourse.courseCode}}
+          </td>
+          <td style="display: flex; flex-direction: column">
+            <span *ngFor="let schedule of singleSchedule.vnuTimerScheduleList">
+              {{schedule.note}}
+              {{schedule.teacherName}}
+            </span>
+
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

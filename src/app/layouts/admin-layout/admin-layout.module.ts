@@ -15,6 +15,7 @@ import {NotificationsComponent} from '../../pages/notifications/notifications.co
 import {UpgradeComponent} from '../../pages/upgrade/upgrade.component';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {VnuScheduleComponent} from '../../pages/vnu-schedule/vnu-schedule.component';
 
 @NgModule({
   imports: [
@@ -32,6 +33,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     IconsComponent,
     MapsComponent,
     NotificationsComponent,
+    VnuScheduleComponent
   ]
 })
 
