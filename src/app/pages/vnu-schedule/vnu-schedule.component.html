@@ -3,6 +3,18 @@
     <h4 class="card-title"> Lịch Học </h4>
   </div>
   <div class="card-body">
+
+    <form [formGroup]="studentInformationForm" (ngSubmit)="ngOnSubmit()">
+      <div class="row">
+        <div class="col-md-5 pr-1">
+          <div class="form-group">
+            <label>Mã sinh viên</label>
+            <input type="text" class="form-control" placeholder="Mã sinh viên" formControlName="studentCode">
+          </div>
+        </div>
+      </div>
+    </form>
+
     <div class="table-responsive">
       <table class="table">
         <thead class=" text-primary">
@@ -52,6 +64,9 @@
                   <th>
                     Địa Điểm Học
                   </th>
+                  <th>
+                    Ghi chú
+                  </th>
                   </thead>
                   <tbody>
                     <tr *ngFor="let schedule of singleSchedule.vnuTimerScheduleList">
@@ -67,12 +82,15 @@
                       <td>
                         {{schedule.place}}
                       </td>
+                      <td>
+                        {{schedule.note}}
+                      </td>
                     </tr>
                   </tbody>
                 </table>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+<!--                <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>-->
               </div>
             </ng-template>
           </td>

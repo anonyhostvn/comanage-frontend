@@ -3,6 +3,7 @@ import {VnuScheduleService} from './vnu-schedule.service';
 import {Observable} from 'rxjs';
 import {map, pluck} from 'rxjs/operators';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {FormBuilder} from '@angular/forms';
 
 
 @Component({
@@ -18,10 +19,26 @@ export class VnuScheduleComponent implements OnInit {
     pluck('listSchedule')
   );
 
+  studentInformationForm = this.formBuilder.group({
+    studentCode: ''
+  });
+
+  ngOnSubmit(): void {
+    this.onChangeStudentId(this.studentInformationForm.value.studentCode);
+  }
+
   constructor(
     private vnuScheduleService: VnuScheduleService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private formBuilder: FormBuilder
   ) {
+  }
+
+  onChangeStudentId = (studentId) => {
+    this.schedules = this.vnuScheduleService.getScheduleByStudentId(studentId).pipe(
+      map(response => response.data),
+      pluck('listSchedule')
+    );
   }
 
   open(content) {
