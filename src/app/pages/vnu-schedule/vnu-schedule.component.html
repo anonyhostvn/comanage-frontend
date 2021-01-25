@@ -4,7 +4,7 @@
   </div>
   <div class="card-body">
 
-    <form [formGroup]="studentInformationForm" (ngSubmit)="ngOnSubmit()">
+    <form *ngIf="listTerm$ && (listTerm$ | async) as listItem" [formGroup]="studentInformationForm" (ngSubmit)="ngOnSubmit()">
       <div class="row">
         <div class="col-md-5 pr-1">
           <div class="form-group">
@@ -12,10 +12,26 @@
             <input type="text" class="form-control" placeholder="Mã sinh viên" formControlName="studentCode">
           </div>
         </div>
+        <div class="col-md-5 pr-1">
+          <div class="form-group">
+            <label> Kỳ Học </label>
+            <select class="form-control custom-select" formControlName="termId">
+              <option value="0" selected>
+                ---
+              </option>
+              <option  *ngFor="let term of listItem" [ngValue]="term.termId">
+                {{term.description}}
+              </option>
+            </select>
+          </div>
+        </div>
       </div>
     </form>
+    <button class="btn btn-primary" (click)="ngSignInWithGoogle()"> Sign In With Google </button>
 
-    <div class="table-responsive">
+<!--    <div class="loader" *ngIf="!(schedules$ | async)"></div>-->
+
+    <div class="table-responsive" *ngIf="(schedules$ | async) as schedules">
       <table class="table">
         <thead class=" text-primary">
         <th>
@@ -29,7 +45,7 @@
         </th>
         </thead>
         <tbody>
-        <tr *ngFor="let singleSchedule of schedules | async">
+        <tr *ngFor="let singleSchedule of schedules">
           <td>
             {{singleSchedule.vnuClass.vnuCourse.courseName}}
           </td>
@@ -44,7 +60,9 @@
 
             <ng-template #content let-modal>
               <div class="modal-header">
-                <p class="modal-title" id="modal-basic-title"> Schedules of "{{singleSchedule.vnuClass.vnuCourse.courseName}} - {{singleSchedule.vnuClass.vnuCourse.courseCode}}" </p>
+                <p class="modal-title" id="modal-basic-title"> Lịch học môn
+                  "{{singleSchedule.vnuClass.vnuCourse.courseName}} - {{singleSchedule.vnuClass.vnuCourse.courseCode}}
+                  " </p>
                 <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -69,28 +87,28 @@
                   </th>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let schedule of singleSchedule.vnuTimerScheduleList">
-                      <td>
-                        Thứ {{schedule.weekday}}
-                      </td>
-                      <td>
-                        {{schedule.startShift}} - {{schedule.endShift}}
-                      </td>
-                      <td>
-                        {{schedule.teacherName}}
-                      </td>
-                      <td>
-                        {{schedule.place}}
-                      </td>
-                      <td>
-                        {{schedule.note}}
-                      </td>
-                    </tr>
+                  <tr *ngFor="let schedule of singleSchedule.vnuTimerScheduleList">
+                    <td>
+                      Thứ {{schedule.weekday}}
+                    </td>
+                    <td>
+                      {{schedule.startShift}} - {{schedule.endShift}}
+                    </td>
+                    <td>
+                      {{schedule.teacherName}}
+                    </td>
+                    <td>
+                      {{schedule.place}}
+                    </td>
+                    <td>
+                      {{schedule.note}}
+                    </td>
+                  </tr>
                   </tbody>
                 </table>
               </div>
               <div class="modal-footer">
-<!--                <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>-->
+                <!--                <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>-->
               </div>
             </ng-template>
           </td>

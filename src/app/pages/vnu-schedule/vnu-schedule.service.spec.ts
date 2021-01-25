@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { VnuScheduleService } from './vnu-schedule.service';
+import {VnuScheduleService} from './vnu-schedule.service';
 
 describe('VnuScheduleService', () => {
   let service: VnuScheduleService;
