@@ -13,6 +13,8 @@ import { AppRoutes } from './app.routing';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import {HttpClientModule} from '@angular/common/http';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 
 @NgModule({
@@ -22,6 +24,7 @@ import {HttpClientModule} from '@angular/common/http';
   ],
   imports: [
     HttpClientModule,
+    NgbModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(AppRoutes, {
       useHash: true

@@ -1,19 +1,19 @@
 <div class="card">
   <div class="card-header">
-    <h4 class="card-title"> School Schedule </h4>
+    <h4 class="card-title"> Lịch Học </h4>
   </div>
   <div class="card-body">
     <div class="table-responsive">
       <table class="table">
         <thead class=" text-primary">
         <th>
-          Course Name
+          Tên Môn Học
         </th>
         <th>
-          Course Code
+          Mã Môn Học
         </th>
         <th>
-          Schedule
+          Lịch Học
         </th>
         </thead>
         <tbody>
@@ -22,14 +22,59 @@
             {{singleSchedule.vnuClass.vnuCourse.courseName}}
           </td>
           <td>
-            {{singleSchedule.vnuClass.vnuCourse.courseCode}}
+            {{singleSchedule.vnuClass.vnuCourse.courseCode}} - {{singleSchedule.vnuClass.classCode}}
           </td>
           <td style="display: flex; flex-direction: column">
-            <span *ngFor="let schedule of singleSchedule.vnuTimerScheduleList">
-              {{schedule.note}}
-              {{schedule.teacherName}}
-            </span>
+            <button class="btn btn-primary" style="width: 200px" (click)="open(content)">
+              <i class="fa fa-calendar"></i>
+              Xem Lịch Học
+            </button>
 
+            <ng-template #content let-modal>
+              <div class="modal-header">
+                <p class="modal-title" id="modal-basic-title"> Schedules of "{{singleSchedule.vnuClass.vnuCourse.courseName}} - {{singleSchedule.vnuClass.vnuCourse.courseCode}}" </p>
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <table class="table">
+                  <thead class=" text-primary">
+                  <th>
+                    Thứ
+                  </th>
+                  <th>
+                    Ca Học
+                  </th>
+                  <th>
+                    Giảng Viên
+                  </th>
+                  <th>
+                    Địa Điểm Học
+                  </th>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let schedule of singleSchedule.vnuTimerScheduleList">
+                      <td>
+                        Thứ {{schedule.weekday}}
+                      </td>
+                      <td>
+                        {{schedule.startShift}} - {{schedule.endShift}}
+                      </td>
+                      <td>
+                        {{schedule.teacherName}}
+                      </td>
+                      <td>
+                        {{schedule.place}}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+              </div>
+            </ng-template>
           </td>
         </tr>
         </tbody>
