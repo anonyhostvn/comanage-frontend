@@ -27,8 +27,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     NgbModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(AppRoutes, {
-      useHash: true
-    }),
+    useHash: true,
+    relativeLinkResolution: 'legacy'
+}),
     SidebarModule,
     NavbarModule,
     ToastrModule.forRoot(),
