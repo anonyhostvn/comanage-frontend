@@ -7,7 +7,7 @@ import {FormBuilder} from '@angular/forms';
 import {GoogleLoginProvider, SocialAuthService} from 'angularx-social-login';
 
 const googleLoginOptions = {
-  scope: 'profile email calendar'
+  scope: ['https://www.googleapis.com/auth/calendar']
 };
 
 @Component({
@@ -17,6 +17,7 @@ const googleLoginOptions = {
 })
 export class VnuScheduleComponent implements OnInit {
   closeResult = '';
+  isLoading = false;
 
   schedules$: Observable<any> = null;
 
@@ -47,8 +48,12 @@ export class VnuScheduleComponent implements OnInit {
   ) {}
 
   onChangeStudentId = (studentId, termId) => {
+    this.isLoading = true;
     this.schedules$ = this.vnuScheduleService.getScheduleByStudentId(studentId, termId).pipe(
-      map(response => response.data),
+      map(response => {
+        this.isLoading = false;
+        return response.data
+      }),
       pluck('listSchedule')
     );
   }

@@ -27,11 +27,15 @@
         </div>
       </div>
     </form>
-    <button class="btn btn-primary" (click)="ngSignInWithGoogle()"> Sign In With Google </button>
+    <button class="btn btn-primary" (click)="ngOnSubmit()"> <i class="fa fa-search"></i> Tìm kiếm </button>
+<!--    <button class="btn btn-primary" (click)="ngSignInWithGoogle()"> Sign In With Google </button>-->
 
-<!--    <div class="loader" *ngIf="!(schedules$ | async)"></div>-->
+    <div *ngIf="isLoading" style="width: 100%; align-items: center; text-align: center;">
+      <img src="assets/img/Ripple-1s-200px.svg" alt="loading..." style="width: 100px">
+    </div>
 
     <div class="table-responsive" *ngIf="(schedules$ | async) as schedules">
+
       <table class="table">
         <thead class=" text-primary">
         <th>
